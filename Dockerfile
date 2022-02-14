@@ -9,16 +9,13 @@ ENV HOME=/root \
 	REMOTE_HOST=localhost \
 	REMOTE_PORT=5900
 
-RUN apk --update --upgrade add git bash supervisor nodejs nodejs-npm \
+RUN apk --update --upgrade add git bash supervisor nodejs npm \
 	&& git clone https://github.com/jerrychen052004/novnc-with-websockify /root/noVNC \
 	&& rm -rf /root/noVNC/.git \
 	&& cd /root/noVNC \
 	&& npm install npm@latest \
 	&& npm install \
-	&& ./utils/use_require.js --as commonjs --with-app \
-	&& cp /root/noVNC/node_modules/requirejs/require.js /root/noVNC/build \
-	&& sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/launch.sh \
-	&& apk del git nodejs-npm nodejs
+	&& apk del git npm nodejs
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
