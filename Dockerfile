@@ -13,6 +13,7 @@ RUN apk --update --upgrade add git bash supervisor \
 	&& git clone https://github.com/jerrychen052004/novnc-with-websockify /root/noVNC \
 	&& rm -rf /root/noVNC/.git \
 	&& cd /root/noVNC \
+	&& sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/novnc_proxy 
 	&& apk del git
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
