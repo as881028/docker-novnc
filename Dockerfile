@@ -1,5 +1,5 @@
-FROM alpine:3.6
-LABEL maintainer=doug.warren@gmail.com
+FROM alpine:3.15.0
+LABEL maintainer=jerrychen052004@gmail.com
 
 ENV HOME=/root \
 	DEBIAN_FRONTEND=noninteractive \
@@ -10,10 +10,8 @@ ENV HOME=/root \
 	REMOTE_PORT=5900
 
 RUN apk --update --upgrade add git bash supervisor nodejs nodejs-npm \
-	&& git clone https://github.com/novnc/noVNC.git /root/noVNC \
-	&& git clone https://github.com/novnc/websockify /root/noVNC/utils/websockify \
+	&& git clone https://github.com/jerrychen052004/novnc-with-websockify /root/noVNC \
 	&& rm -rf /root/noVNC/.git \
-	&& rm -rf /root/noVNC/utils/websockify/.git \
 	&& cd /root/noVNC \
 	&& npm install npm@latest \
 	&& npm install \
